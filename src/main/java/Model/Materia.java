@@ -89,15 +89,9 @@ public class Materia {
      * @param horario Lista de horários a ser transformado em ID
      */
     public void criarID(Set<Horario> horario){
-
-        List<Horario> horarios = new ArrayList<>(horario);
-        for(Horario index : horarios){
-
-            List<Integer> dias = new ArrayList<>(index.getDia());
-            for(Integer dia : dias){
-
-                List<Integer> horas = new ArrayList<>(index.getHora());
-                for(Integer hora : horas){
+        for(Horario index : horario){
+            for(Integer dia : index.getDia()){
+                for(Integer hora : index.getHora()){
                     idGrade.add(index.getTurno()+hora+dia);
                 }
             }
