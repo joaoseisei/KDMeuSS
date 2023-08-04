@@ -15,7 +15,7 @@ public class Controle {
     @GetMapping
     public ResponseEntity<List<Grade>> getGrades(){
         ArrayList<Materia> teste = new ArrayList<>();
-        teste.add(new Materia("fulano", "teste", "12M12"));
+        teste.add(new Materia("introduçao a computaria 1", "teste", "12M12 3M34"));
         teste.add(new Materia("fulano2", "teste2", "12T23"));
         Grade grade = new Grade(teste);
         Grade grade2 = new Grade(teste);

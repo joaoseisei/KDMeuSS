@@ -1,13 +1,4 @@
 
-fetch("/gradesFiltradas")
-    .then(response => response.text())
-    .then(data => {
-        console.log('Resposta da /teste:', data);
-    })
-    .catch(error => {
-        console.error('Ocorreu um erro:', error);
-    });
-
 var data = {
     nome: "AAAAAAAAAAAAAAAAAA",
     professor: "'123teste'",
@@ -23,27 +14,56 @@ fetch('/gradesFiltradas/endpoint', {
     body: JSON.stringify(data)
 });
 
-document.addEventListener("DOMContentLoaded", ()=>{
-    const botao = document.getElementById("meuBotao");
-    botao.addEventListener("click", function() {
-        adicionarDado("EDA <br> Rose", "1", "1");
-        adicionarDado("FGA - 168 <br> Rose", "2", "2");
-        adicionarDado("ESTRUTURA DE DADOS 2 <br> FULANO DE TAL CICLANO", "3", "3");
-    });
-    const botao2 = document.getElementById("limpar");
-    botao2.addEventListener("click", limparDados);
+//---------------------------------ATUALIZAR----------------------------------
+const btnAtualizar = document.getElementById("bntAtualizar");
+btnAtualizar.addEventListener("click", () => {
+    fetch("/gradesFiltradas")
+        .then(response => response.json())
+        .then(data =>{
+            atualizarGrade(data, 0);
+        }).catch(error => erro(error));
 });
 
+function atualizarGrade(data, index){
+    const grade = data[index].materias;
+    for(let i = 0; i < grade.length; i++){
+
+        const horarios = grade[i].horario;
+        for(let k = 0; k <= horarios; k++){
+            const dias = horarios[k].dia;
+            for(let j = 0; j< dias.length; j++){
+                console.log(dias[j]);
+            }
+
+        }
+
+    }
+    grade.forEach(materia =>{
+        console.log(materia)
+        const horario = materia.horario;
+        horario.forEach((horario)=>{
+            const dias = horario.dia
+            console.log(dias);
+        });
+    });
+}
+/**
+ * Alerta o erro.
+ * @param error Erro a ser alertado.
+ */
+function erro(error){
+    console.error("erro", error);
+}
 
 
-
-
-
-
-
+/**
+ * Limpa todas as células q tem o id de 1 a 7 (todas q tem dias no id).
+ */
 function limparDados(){
-    const celulasComIds = document.querySelectorAll("td");
-    celulasComIds.forEach((celula) => {if(celula.id.match(/^[1-8]/)) celula.innerHTML = "";});
+    const td = document.querySelectorAll("td");
+    td.forEach((celula) => {
+        if(celula.id.match(/^[1-7]/)) celula.innerHTML = "";
+    });
 }
 
 function adicionarDado(dado,linha,coluna){
