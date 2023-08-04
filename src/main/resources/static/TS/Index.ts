@@ -25,25 +25,12 @@ btnAtualizar.addEventListener("click", () => {
 });
 
 function atualizarGrade(data, index){
+    limparDados();
     const grade = data[index].materias;
-    for(let i = 0; i < grade.length; i++){
-
-        const horarios = grade[i].horario;
-        for(let k = 0; k <= horarios; k++){
-            const dias = horarios[k].dia;
-            for(let j = 0; j< dias.length; j++){
-                console.log(dias[j]);
-            }
-
-        }
-
-    }
     grade.forEach(materia =>{
-        console.log(materia)
-        const horario = materia.horario;
-        horario.forEach((horario)=>{
-            const dias = horario.dia
-            console.log(dias);
+        materia.idGrade.forEach(id =>{
+            const dado = materia.nome + "<br>" + materia.professor;
+            adicionarDado(dado, id);
         });
     });
 }
@@ -66,16 +53,7 @@ function limparDados(){
     });
 }
 
-function adicionarDado(dado,linha,coluna){
-    document.getElementById(linha + coluna).innerHTML = dado;
+function adicionarDado(dado,id){
+    document.getElementById(id).innerHTML = dado;
 }
 
-function adicionarMateria(ArrayGrade, index){
-    const [dado, linha, coluna] = ArrayGrade[index].split("|");
-    adicionarDado(dado, linha, coluna);
-}
-
-function gerarGrades(ArrayGrade){
-    limparDados()
-    for(let i=0; i < ArrayGrade.length; i++) adicionarMateria(ArrayGrade, i);
-}
