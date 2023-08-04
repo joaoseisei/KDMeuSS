@@ -1,19 +1,4 @@
 
-var data = {
-    nome: "AAAAAAAAAAAAAAAAAA",
-    professor: "'123teste'",
-    codigo: "123",
-    horario: []
-};
-
-fetch('/gradesFiltradas/endpoint', {
-    method: 'POST',
-    headers: {
-        'Content-Type': 'application/json'
-    },
-    body: JSON.stringify(data)
-});
-
 //---------------------------------ATUALIZAR----------------------------------
 const btnAtualizar = document.getElementById("bntAtualizar");
 let gradeVisualizada = 0;
