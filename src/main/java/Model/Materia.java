@@ -13,7 +13,6 @@ public class Materia {
     private String professor;
     private String codigo;
     private Set<Horario> horario = new HashSet<>();
-    private List<String> idGrade = new ArrayList<>();
 //CONSTRUTOR
     /**
      * Construtor da classe Materia.
@@ -31,7 +30,6 @@ public class Materia {
             for(String index : partes){
                 horario.add(new Horario(index));
             }
-            criarID(horario);
         }
     }
 //GETTERS
@@ -46,9 +44,6 @@ public class Materia {
     }
     public Set<Horario> getHorario(){
         return horario;
-    }
-    public List<String> getIdGrade(){
-        return idGrade;
     }
 //SETTERS
     public void setProfessor(String novoProfessor){
@@ -82,20 +77,6 @@ public class Materia {
      */
     public boolean verificarCodigo(Materia obj){
         return !(obj.getProfessor().equals("nenhum") || obj.getProfessor().equals(this.professor));
-    }
-
-    /**
-     * Esse método transforma o horario em uma lista de ids para colocar nas células HTML.
-     * @param horario Lista de horários a ser transformado em ID
-     */
-    public void criarID(Set<Horario> horario){
-        for(Horario index : horario){
-            for(Integer dia : index.getDia()){
-                for(Integer hora : index.getHora()){
-                    idGrade.add(index.getTurno()+hora+dia);
-                }
-            }
-        }
     }
 //TOSTRING
     public String toString(){

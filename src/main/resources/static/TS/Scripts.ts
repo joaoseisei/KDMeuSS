@@ -15,16 +15,21 @@ const btnLimpar = document.getElementById("btnLimpar");
 btnLimpar.addEventListener("click", limparDados);
 //---------------------------------FUNÇOES----------------------------------
 /**
- * Esse método é responsável por adicionar uma grade na tabela com base no seu index.
+ * Esse método é responsável por adicionar uma grade na tabela através do seu horário..
  * @param data Grade a ser adicionada.
  * @param index Index da grade mostrada na tabela.
  */
 function atualizarGrade(data, index){
     limparDados();
     data[index].materias.forEach(materia => {
-        materia.idGrade.forEach(id => {
-            const dado =`${materia.nome}<br>${materia.professor}`;
-            adicionarDado(dado, id);
+        materia.horario.forEach(horarios =>{
+            horarios.dia.forEach(dias =>{
+                horarios.hora.forEach(horas =>{
+                    const id = horarios.turno + horas + dias;
+                    const dado = `${materia.nome}`; //<br>${materia.professor}
+                    adicionarDado(dado, id);
+                });
+            });
         });
     });
 }

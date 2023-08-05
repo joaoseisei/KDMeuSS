@@ -3,6 +3,7 @@ package com.joaoseisei.KDMeuSS;
 import Model.Grade;
 import Model.Materia;
 
+import Model.Memoria;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -14,17 +15,28 @@ import java.util.List;
 public class Controle {
     @GetMapping
     public ResponseEntity<List<Grade>> getGrades(){
+        Dados dados = new Dados();
+        Memoria memoria = new Memoria();
+        memoria.setMaterias(dados.getMaterias());
+
+        GerenciadorGrades gerenciadorGrades = new GerenciadorGrades(memoria);
+
         ArrayList<Materia> teste = new ArrayList<>();
-        ArrayList<Materia> teste2 = new ArrayList<>();
-        teste.add(new Materia("introduçao a computaria 1", "teste", "12M12 3M34"));
-        teste.add(new Materia("fulano2", "teste2", "12T23"));
-        teste2.add(new Materia("LAULAUALUA", "FSDFADSFADS", "1234T234"));
-        Grade grade = new Grade(teste);
-        Grade grade2 = new Grade(teste2);
-        List<Grade> grades = new ArrayList<>();
-        grades.add(grade);
-        grades.add(grade2);
-        return ResponseEntity.ok(grades);
+        Materia lau = new Materia("EDA", "nenhum", "nenhum");
+        Materia lau1 = new Materia("FAC", "nenhum", "nenhum");
+        Materia lau2 = new Materia("MDS", "nenhum", "nenhum");
+        Materia lau3 = new Materia("GPQ", "nenhum", "nenhum");
+        Materia lau4 = new Materia("MD2", "nenhum", "nenhum");
+        Materia lau5 = new Materia("PJ1", "nenhum", "nenhum");
+        teste.add(lau);
+        teste.add(lau1);
+        teste.add(lau2);
+        teste.add(lau3);
+        teste.add(lau4);
+        teste.add(lau5);
+        ArrayList<Grade> gradesPossiveis = new ArrayList<>(gerenciadorGrades.gerarGrades(teste));
+        System.out.println("Grades Possiveis: "+gradesPossiveis.size());
+        return ResponseEntity.ok(gradesPossiveis);
     }
 
     @PostMapping("/endpoint")
