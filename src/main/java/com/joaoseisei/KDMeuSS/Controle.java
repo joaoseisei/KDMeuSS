@@ -35,7 +35,6 @@ public class Controle {
         teste.add(lau4);
         teste.add(lau5);
         ArrayList<Grade> gradesPossiveis = new ArrayList<>(gerenciadorGrades.gerarGrades(teste));
-        System.out.println("Grades Possiveis: "+gradesPossiveis.size());
         return ResponseEntity.ok(gradesPossiveis);
     }
 
