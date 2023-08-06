@@ -10,38 +10,6 @@
     background-size: cover;
     background-position: center;
 }
-.navbar{
-    width: 85%;
-    margin: auto;
-    padding: 35px 0;
-    display: flex;
-    align-content: center;
-    justify-content: space-between;
-}
-.navbar ul li{
-    list-style: none;
-    display: inline-block;
-    margin: 0 20px;
-    position: relative;
-}
-.navbar ul li a{
-    text-decoration: none;
-    color: #fff;
-    text-transform: uppercase;
-}
-.navbar ul li::after{
-    content: "";
-    height: 3px;
-    width: 0;
-    background: #009688;
-    position: absolute;
-    left: 0;
-    bottom: -10px;
-    transition: 0.5s;
-}
-.navbar ul li:hover::after{
-    width: 100%;
-}
 .gradeContainer{
     width: 50%;
     height: 80%;
@@ -88,6 +56,7 @@ tbody > tr:nth-child(2n){
 tbody > tr:nth-child(2n-1){
     background-color: #f3f3f3;
 }
+
 .Container{
     width: 100%;
     position: absolute;
@@ -113,57 +82,26 @@ tbody > tr:nth-child(2n-1){
     border-radius: 10px;
     text-align: center;
 }
-.botoes{
+.botaoContainer {
     position: absolute;
-    bottom: 5%;
     display: flex;
-    flex-direction: column;
-    align-items: center;
+    bottom: 5%;
     left: 50%;
     transform: translateX(-50%);
-    z-index: 2;
-}
-.botaoContainer {
-    bottom: 0;
     width: 100%;
-    display: flex;
     justify-content: center;
 }
-button {
+.button {
     width: 60px;
     height: 60px;
     border: 3px solid #009688;
     border-radius: 40px;
     background: transparent;
     box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.4);
-    line-height: 1;
     margin: 0 20px;
     padding: 10px 20px;
-    font-size: 20px;
-    font-family: fantasy;
+    font: 20px fantasy;
     text-align: center;
-    color: #009688;
     cursor: pointer;
-    position: relative;
     overflow: hidden;
 }
-span{
-    background: #009688;
-    height: 100%;
-    width: 0;
-    border-radius: 40px;
-    position: absolute;
-    left: 0;
-    bottom: 0;
-    z-index: -1;
-    transition: 0.5s;
-}
-button:hover{
-    color: white;
-    border: none;
-}
-button:hover span{
-    width: 100%;
-}
-
-
