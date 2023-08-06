@@ -88,53 +88,70 @@ tbody > tr:nth-child(2n){
 tbody > tr:nth-child(2n-1){
     background-color: #f3f3f3;
 }
-.inputsContainer{
+.Container{
     width: 100%;
     position: absolute;
-    top: 40%;
+    top: 35%;
     transform: translateY(-50%);
     text-align: center;
-    height: 40%;
 }
 .inputs{
     display: inline-block;
-    margin: 10px;
-    padding: 20px;
-    width: 40%;
-    height: 20%;
-    background-color: #fff;
-    border-radius: 30px;
-}
-linha{
-    width: 100%;
-}
-.button{
-    margin: 10px;
-    padding: 10px 20px;
-    width: 10%;
-    border: none;
-    cursor: pointer;
-}
-button{
-    width: 200px;
-    padding: 15px;
-    text-align: center;
-    margin: 20px 10px;
-    border-radius: 25px;
-    font-weight: bold;
-    border: 2px solid #009688;
+    width: 35%;
+    height: 12vh;
     background: transparent;
-    color: #fff;
+    border-radius: 30px;
+    padding: 10px;
+}
+.input{
+    background-color: white;
+    margin-right: 10px;
+    width: 40%;
+    height: 4vh;
+    border: none;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.4);
+    border-radius: 10px;
+    text-align: center;
+}
+.botoes{
+    position: absolute;
+    bottom: 5%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 2;
+}
+.botaoContainer {
+    bottom: 0;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+button {
+    width: 60px;
+    height: 60px;
+    border: 3px solid #009688;
+    border-radius: 40px;
+    background: transparent;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.4);
+    line-height: 1;
+    margin: 0 20px;
+    padding: 10px 20px;
+    font-size: 20px;
+    font-family: fantasy;
+    text-align: center;
+    color: #009688;
     cursor: pointer;
     position: relative;
     overflow: hidden;
-    z-index: 1;
 }
 span{
     background: #009688;
     height: 100%;
     width: 0;
-    border-radius: 25px;
+    border-radius: 40px;
     position: absolute;
     left: 0;
     bottom: 0;
@@ -142,8 +159,11 @@ span{
     transition: 0.5s;
 }
 button:hover{
+    color: white;
     border: none;
 }
 button:hover span{
     width: 100%;
 }
+
+
