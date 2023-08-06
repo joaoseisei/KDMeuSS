@@ -40,21 +40,26 @@ function atualizarGrade(data, index){
    });
 }
 function corMateria(materia){
-   const vermelho = Math.floor(Math.random() * (230 - 150 + 1)) + 150;
-   const verde = Math.floor(Math.random() * (230 - 150 + 1)) + 150;
-   const azul = Math.floor(Math.random() * (230 - 150 + 1)) + 150;
-
-   const corAleatoria = `rgb(${vermelho}, ${verde}, ${azul})`;
-
+   const cor = gerarCor();
    materia.horario.forEach(horarios =>{
       horarios.dia.forEach(dias =>{
          horarios.hora.forEach(horas =>{
             const id = horarios.turno + horas + dias;
             const dado = `${materia.nome}`; //<br>${materia.professor}
-            adicionarDado(dado, id, corAleatoria);
+            adicionarDado(dado, id, cor);
          });
       });
    });
+}
+
+/**
+ * Retorna uma cor pastel aleatória;
+ */
+function gerarCor(){
+   const vermelho = Math.floor(Math.random() * (230 - 150 + 1)) + 150;
+   const verde = Math.floor(Math.random() * (230 - 150 + 1)) + 150;
+   const azul = Math.floor(Math.random() * (230 - 150 + 1)) + 150;
+   return `rgb(${vermelho}, ${verde}, ${azul})`;
 }
 /**
  * Limpa todas as células q o id termina de 1 a 7.
@@ -63,7 +68,10 @@ function limparDados(){
    const td = document.querySelectorAll("td");
    td.forEach((celula) => {
       const ultimoCaractere = celula.id.slice(-1);
-      if (/[1-7]/.test(ultimoCaractere)) celula.innerHTML = ""; celula.style.backgroundColor = "";
+      if (/[1-7]/.test(ultimoCaractere)){
+         celula.innerHTML = "";
+         celula.style.backgroundColor = "";
+      }
    });
 }
 /**
