@@ -33,7 +33,7 @@ public class Controle {
         teste.add(lau2);
         teste.add(lau3);
         teste.add(lau4);
-        teste.add(lau5);
+        //teste.add(lau5);
         ArrayList<Grade> gradesPossiveis = new ArrayList<>(gerenciadorGrades.gerarGrades(teste));
         return ResponseEntity.ok(gradesPossiveis);
     }
