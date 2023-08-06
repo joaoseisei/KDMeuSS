@@ -36,13 +36,22 @@ btnSair.addEventListener("click", ()=>{
 function atualizarGrade(data, index){
    limparDados();
    data[index].materias.forEach(materia => {
-      materia.horario.forEach(horarios =>{
-         horarios.dia.forEach(dias =>{
-            horarios.hora.forEach(horas =>{
-               const id = horarios.turno + horas + dias;
-               const dado = `${materia.nome}`; //<br>${materia.professor}
-               adicionarDado(dado, id);
-            });
+      corMateria(materia);
+   });
+}
+function corMateria(materia){
+   const vermelho = Math.floor(Math.random() * (230 - 150 + 1)) + 150;
+   const verde = Math.floor(Math.random() * (230 - 150 + 1)) + 150;
+   const azul = Math.floor(Math.random() * (230 - 150 + 1)) + 150;
+
+   const corAleatoria = `rgb(${vermelho}, ${verde}, ${azul})`;
+
+   materia.horario.forEach(horarios =>{
+      horarios.dia.forEach(dias =>{
+         horarios.hora.forEach(horas =>{
+            const id = horarios.turno + horas + dias;
+            const dado = `${materia.nome}`; //<br>${materia.professor}
+            adicionarDado(dado, id, corAleatoria);
          });
       });
    });
@@ -54,7 +63,7 @@ function limparDados(){
    const td = document.querySelectorAll("td");
    td.forEach((celula) => {
       const ultimoCaractere = celula.id.slice(-1);
-      if (/[1-7]/.test(ultimoCaractere)) celula.innerHTML = "";
+      if (/[1-7]/.test(ultimoCaractere)) celula.innerHTML = ""; celula.style.backgroundColor = "";
    });
 }
 /**
@@ -62,8 +71,10 @@ function limparDados(){
  * @param dado Dado a ser adicionado.
  * @param id Id da célula.
  */
-function adicionarDado(dado,id){
-   document.getElementById(id).innerHTML = dado;
+function adicionarDado(dado,id, cor){
+   const celula = document.getElementById(id);
+   celula.innerHTML = dado;
+   celula.style.backgroundColor = cor;
 }
 /**
  * Alerta o erro.
