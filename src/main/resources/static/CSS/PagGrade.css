@@ -57,6 +57,7 @@ tbody > tr:nth-child(2n-1){
     background-color: #f3f3f3;
 }
 
+/*SELECAO DE MATERIAS*/
 .Container{
     width: 100%;
     position: absolute;
@@ -64,17 +65,18 @@ tbody > tr:nth-child(2n-1){
     transform: translateY(-50%);
     text-align: center;
 }
-.inputs{
+.inputContainer{
     display: inline-block;
     width: 35%;
     height: 12vh;
     background: transparent;
     border-radius: 30px;
     padding: 10px;
+    justify-content: center;
 }
-.input{
+.inputContainer .input{
     background-color: white;
-    margin-right: 10px;
+    margin: 0 10px;
     width: 40%;
     height: 4vh;
     border: none;
@@ -82,7 +84,7 @@ tbody > tr:nth-child(2n-1){
     border-radius: 10px;
     text-align: center;
 }
-.botaoContainer {
+.buttonContainer{
     position: absolute;
     display: flex;
     bottom: 5%;
@@ -91,11 +93,11 @@ tbody > tr:nth-child(2n-1){
     width: 100%;
     justify-content: center;
 }
-.button {
+.buttonContainer .button{
     width: 60px;
     height: 60px;
     border: 3px solid #009688;
-    border-radius: 40px;
+    border-radius: 50%;
     background: transparent;
     box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.4);
     margin: 0 20px;
@@ -103,5 +105,4 @@ tbody > tr:nth-child(2n-1){
     font: 20px fantasy;
     text-align: center;
     cursor: pointer;
-    overflow: hidden;
 }

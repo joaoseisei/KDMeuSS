@@ -19,5 +19,10 @@ public class HtmlController {
         String localizacao = new String(getClass().getResourceAsStream("/templates/PagGrade.html").readAllBytes());
         return ResponseEntity.ok().contentType(MediaType.TEXT_HTML).body(localizacao);
     }
+    @GetMapping("/gerarFluxo")
+    public ResponseEntity<String> abrirFluxo() throws IOException {
+        String localizacao = new String(getClass().getResourceAsStream("/templates/PagFluxo.html").readAllBytes());
+        return ResponseEntity.ok().contentType(MediaType.TEXT_HTML).body(localizacao);
+    }
 }
 
