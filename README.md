@@ -1,7 +1,6 @@
 # KD MEU SS?
 
 ![GitHub repo size](https://img.shields.io/github/repo-size/joaoseisei/KDMeuSS?style=for-the-badge)
-![GitHub forks](https://img.shields.io/github/forks/joaoseisei/KDMeuSS?style=for-the-badge)
 ![GitHub language count](https://img.shields.io/github/languages/count/joaoseisei/KDMeuSS?style=for-the-badge)
 
 <img src="Images/PaginaInicial.png" style="width: 70%">
