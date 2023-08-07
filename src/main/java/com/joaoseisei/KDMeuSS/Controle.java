@@ -38,12 +38,12 @@ public class Controle {
         return ResponseEntity.ok(gradesPossiveis);
     }
 
-    @PostMapping("/endpoint")
-    public ResponseEntity<String> processarJson(@RequestBody Materia materia){
-        System.out.println("Nome: " + materia.getNome());
-        System.out.println("Professor: " + materia.getProfessor());
-        System.out.println("Código: " + materia.getCodigo());
-        // Faça o processamento necessário com a Materia
+    @PostMapping("/preferencias")
+    public ResponseEntity<String> processarJson(@RequestBody List<Materia> materias){
+        materias.forEach(materia -> {
+            System.out.println(materia);
+        });
+
         return ResponseEntity.ok("Materia recebida e processada com sucesso!");
     }
 }

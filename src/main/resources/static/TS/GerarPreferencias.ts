@@ -2,11 +2,22 @@
 
 console.log("GerarPreferencias.ts OK");
 
+//-----------------------------SALVAR PREFERENCIAS-------------------------------
+const btnSalvar = document.getElementById("btnGerarGrade");
+btnSalvar.addEventListener("click", ()=>{
+    const preferencias = salvarInputs()
+    fetch("/gradesFiltradas/preferencias", {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(preferencias)
+    });
+});
 //------------------------------ADICIONAR MATERIA-------------------------------
 const btnAdicionarMateria = document.getElementById("btnAdicionarMateria");
 btnAdicionarMateria.addEventListener("click", ()=>{
     adicionarInput();
-    salvarInputs();
 });
 //-----------------------------------FUNÇOES------------------------------------
 function adicionarInput(){
@@ -33,7 +44,9 @@ function adicionarInput(){
     const inputsContainer = document.getElementById("inputsContainer");
     inputsContainer.appendChild(linha);
 }
-
+/**
+ * Salva os inputs e retorna um Json das preferências.
+ */
 function salvarInputs(){
 
     const preferenciasJSON = [];
@@ -45,8 +58,8 @@ function salvarInputs(){
 
         linhas.forEach(linha =>{
             const disciplina ={
-                materia: linha.querySelector('input[placeholder="Matéria"]').value,
-                professor: linha.querySelector('input[placeholder="Professor"]').value
+                nome: linha.querySelector('input[placeholder="Matéria"]').value,
+                professor: linha.querySelector('input[placeholder="Professor"]').value,
             };
             preferenciasJSON.push(disciplina);
         });
