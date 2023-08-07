@@ -65,7 +65,7 @@ public class Materia {
      * @return retorna true se os professores forem iguais.
      */
     public boolean verificarProfessor(Materia obj){
-        return !(obj.getProfessor().equals("nenhum") || obj.getProfessor().equals(this.professor));
+        return !(obj.getProfessor().equals("nenhum") || obj.getProfessor().equals(this.professor)) || obj.getProfessor().isEmpty();
     }
 
     /**

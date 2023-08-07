@@ -9,42 +9,24 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/gradesFiltradas")
 public class Controle {
+    private ArrayList<Materia> preferencias = new ArrayList<>();
     @GetMapping
     public ResponseEntity<List<Grade>> getGrades(){
         Dados dados = new Dados();
         Memoria memoria = new Memoria();
         memoria.setMaterias(dados.getMaterias());
-
         GerenciadorGrades gerenciadorGrades = new GerenciadorGrades(memoria);
-
-        ArrayList<Materia> teste = new ArrayList<>();
-        Materia lau = new Materia("EDA", "nenhum", "nenhum");
-        Materia lau1 = new Materia("FAC", "nenhum", "nenhum");
-        Materia lau2 = new Materia("MDS", "nenhum", "nenhum");
-        Materia lau3 = new Materia("GPQ", "nenhum", "nenhum");
-        Materia lau4 = new Materia("MD2", "nenhum", "nenhum");
-        Materia lau5 = new Materia("PJ1", "nenhum", "nenhum");
-        teste.add(lau);
-        teste.add(lau1);
-        teste.add(lau2);
-        teste.add(lau3);
-        teste.add(lau4);
-        //teste.add(lau5);
-        ArrayList<Grade> gradesPossiveis = new ArrayList<>(gerenciadorGrades.gerarGrades(teste));
-        return ResponseEntity.ok(gradesPossiveis);
+        return ResponseEntity.ok(gerenciadorGrades.gerarGrades(preferencias));
     }
-
     @PostMapping("/preferencias")
-    public ResponseEntity<String> processarJson(@RequestBody List<Materia> materias){
-        materias.forEach(materia -> {
-            System.out.println(materia);
-        });
-
-        return ResponseEntity.ok("Materia recebida e processada com sucesso!");
+    public ResponseEntity<String> processarJson(@RequestBody ArrayList<Materia> materias){
+        this.preferencias = materias;
+        return ResponseEntity.ok("Preferencias recebidas");
     }
 }
 

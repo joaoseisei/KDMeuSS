@@ -7,10 +7,12 @@ const btnGerarGrade = document.getElementById("btnGerarGrade");
 const gradeContainer = document.getElementById("grade").style;
 const inputsContainer = document.getElementById("inputs").style;
 btnGerarGrade.addEventListener("click", ()=>{
-   gradeVisualizada = 0;
-   btnAtualizar.click();
-   gradeContainer.display="block";
-   inputsContainer.display="none";
+   setTimeout(()=>{
+      gradeVisualizada = 0;
+      btnAtualizar.click();
+      gradeContainer.display="block";
+      inputsContainer.display="none";
+   }, 700);
 });
 //---------------------------------ATUALIZAR----------------------------------
 const btnAtualizar = document.getElementById("btnAtualizar");

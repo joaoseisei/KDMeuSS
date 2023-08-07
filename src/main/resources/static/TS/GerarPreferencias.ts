@@ -57,11 +57,13 @@ function salvarInputs(){
         const linhas = inputContainer.querySelectorAll("#linha");
 
         linhas.forEach(linha =>{
-            const disciplina ={
-                nome: linha.querySelector('input[placeholder="Matéria"]').value,
-                professor: linha.querySelector('input[placeholder="Professor"]').value,
-            };
-            preferenciasJSON.push(disciplina);
+            if(linha.querySelector('input[placeholder="Matéria"]').value != ""){
+                const disciplina ={
+                    nome: linha.querySelector('input[placeholder="Matéria"]').value,
+                    professor: linha.querySelector('input[placeholder="Professor"]').value
+                };
+                preferenciasJSON.push(disciplina);
+            }
         });
     });
     console.log(preferenciasJSON);
