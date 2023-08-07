@@ -1,6 +1,6 @@
 //ESSE ARIQUIVO É DESTINADO A PEGAR AS GRADES VIA PROTOCOLO HTTP GET//
 
-console.log("Get.ts OK");
+console.log("GerarGrade.ts OK");
 
 //---------------------------------ABRIR GRADE---------------------------------
 const btnGerarGrade = document.getElementById("btnGerarGrade");

@@ -10,8 +10,8 @@
     <link rel="stylesheet" href="/static/CSS/PagGrade.css">
     <link rel="stylesheet" href="/static/CSS/Menu.css">
 
-    <script defer src="../static/TS/Get.ts"></script>
-    <script defer src="../static/TS/Post.ts"></script>
+    <script defer src="../static/TS/GerarGrade.ts"></script>
+    <script defer src="../static/TS/GerarPreferencias.ts"></script>
 </head>
 <body>
     <div class="planoFundo" id="plano">
@@ -233,28 +233,26 @@
         </div>
 
         <div class="Container" id="inputs">
-            <div class="inputContainer">
-                <div class="linha">
-                    <input class="input" type="text" placeholder="Matéria" list="supimba">
-                    <input class="input" type="text" placeholder="Professor">
+            <div class="inputContainer" id="inputsContainer">
+                <div class="linha" id="linha">
+                    <input class="input" type="text" placeholder="Matéria" list="materias">
+                    <input class="input" type="text" placeholder="Professor" list="professores">
                 </div>
-                <div class="buttonContainer">
-                    <button class="button" id="btnAdicionarMateria"><span></span>+</button>
-                    <button class="button" id="btnGerarGrade"><span></span>✓</button>
-                </div>
+            </div>
+            <div class="buttonContainer">
+                <button class="button" id="btnAdicionarMateria"><span></span>+</button>
+                <button class="button" id="btnGerarGrade"><span></span>✓</button>
             </div>
         </div>
 
     </div>
-<datalist id="supimba">
+<datalist id="materias">
     <option value="teste"></option>
     <option value="teste"></option>
+</datalist>
+<datalist id="professores">
     <option value="teste"></option>
     <option value="teste"></option>
-    <option value="teste"></option>
-    <option value="teste"></option>
-    <option value="teste"></option>
-
 
 </datalist>
 </body>
