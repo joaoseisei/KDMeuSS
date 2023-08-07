@@ -1,5 +1,8 @@
-console.log("Server.ts OK");
+//ESSE ARIQUIVO É DESTINADO A PEGAR AS GRADES VIA PROTOCOLO HTTP GET//
 
+console.log("Get.ts OK");
+
+//---------------------------------ABRIR GRADE---------------------------------
 const btnGerarGrade = document.getElementById("btnGerarGrade");
 const gradeContainer = document.getElementById("grade").style;
 const inputsContainer = document.getElementById("inputs").style;
@@ -20,12 +23,12 @@ btnAtualizar.addEventListener("click", () => {
           if(materiasColoridas.length === 0) materiasColoridas = vincularCorMateria(data[0].materias);
           atualizarGrade(data, gradeVisualizada);
           gradeVisualizada = (gradeVisualizada + 1) % data.length;
-       }).catch(error => erro(error));
+       }).catch(error => console.error('Erro:', error));
 });
-//-----------------------------------SAIR------------------------------------
+//---------------------------------FECHAR GRADE----------------------------------
 const btnSair = document.getElementById("btnSair");
 btnSair.addEventListener("click", ()=>{
-   console.log("saindo das grades")
+   materiasColoridas = [];
    gradeContainer.display="none";
    inputsContainer.display="block";
 });
@@ -56,7 +59,6 @@ function adicionarMateria(materia){
       });
    });
 }
-
 /**
  * Retorna a cor da matéria.
  * @param materia Matéria a ser verificada a cor.
@@ -112,11 +114,4 @@ function adicionarDado(dado, id, cor){
    const celula = document.getElementById(id);
    celula.innerHTML = dado;
    celula.style.backgroundColor = cor;
-}
-/**
- * Alerta o erro.
- * @param error Erro a ser alertado.
- */
-function erro(error){
-   console.error("erro", error);
 }
