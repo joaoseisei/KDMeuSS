@@ -20,6 +20,9 @@ btnAdicionarMateria.addEventListener("click", ()=>{
     adicionarInput();
 });
 //-----------------------------------FUNÇOES------------------------------------
+/**
+ * Adiciona uma nova div de inputs.
+ */
 function adicionarInput(){
 
     const linha = document.createElement("div");
@@ -69,3 +72,26 @@ function salvarInputs(){
     console.log(preferenciasJSON);
     return preferenciasJSON;
 }
+
+fetch("/gradesFiltradas/listaMaterias")
+    .then(response => response.json())
+    .then(data  => {
+        const datalist = document.getElementById("materias");
+
+        data.forEach(materia => {
+            const option = document.createElement("option");
+            option.value = materia;
+            datalist.appendChild(option);
+        });
+    }).catch(error => console.error('Erro:', error));
+fetch("/gradesFiltradas/listaProfessores")
+    .then(response => response.json())
+    .then(data  => {
+        const datalist = document.getElementById("professores");
+
+        data.forEach(professor => {
+            const option = document.createElement("option");
+            option.value = professor;
+            datalist.appendChild(option);
+        });
+    }).catch(error => console.error('Erro:', error));
