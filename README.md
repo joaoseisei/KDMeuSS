@@ -5,6 +5,8 @@
 
 <img src="Images/PaginaInicial.png" style="width: 70%">
 
+<img src="Images/Grade.png" style="width: 70%">
+
 >Esse projeto é um gerador automático de grade horária.
 
 ### Ajuste e melhorias
