@@ -38,7 +38,7 @@ public class Controle {
     @PostMapping("/preferencias")
     public ResponseEntity<String> processarJson(@RequestBody ArrayList<Materia> materias){
         this.preferencias = materias;
-        return ResponseEntity.ok("Preferencias recebidas");
+        return ResponseEntity.ok("ok");
     }
 
     /**
