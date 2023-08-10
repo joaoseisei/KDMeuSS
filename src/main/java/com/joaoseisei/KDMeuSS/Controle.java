@@ -15,6 +15,7 @@ import java.util.stream.Collectors;
 @RequestMapping("/gradesFiltradas")
 public class Controle {
     Dados dados = new Dados();
+
     /**
      * Processa a lista de preferências do front.
      * @param materias Lista de matérias recebidas.
@@ -25,6 +26,7 @@ public class Controle {
         GerenciadorGrades gerenciadorGrades = new GerenciadorGrades(dados.getMaterias());
         return ResponseEntity.ok(gerenciadorGrades.gerarGrades(materias));
     }
+
     /**
      * Envia uma lista de Materias para /listaProfessores.
      * @return Lista de strings com nome dos professores.
@@ -33,6 +35,7 @@ public class Controle {
     public ResponseEntity<Set<String>> getNomeMaterias(){
         return ResponseEntity.ok(dados.getMaterias().stream().map(Materia::getNome).collect(Collectors.toSet()));
     }
+
     /**
      * Envia uma lista de professores para /listaProfessores
      * @return Lista de strings com nome dos professores.
