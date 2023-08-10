@@ -15,32 +15,19 @@ import java.util.stream.Collectors;
 @RestController
 @RequestMapping("/gradesFiltradas")
 public class Controle {
-    private ArrayList<Materia> preferencias = new ArrayList<>();
     Dados dados = new Dados();
     Memoria memoria = new Memoria();
-
-    /**
-     * Envia uma lista de grades possiveis com as preferências.
-     * @return OK
-     */
-    @GetMapping
-    public ResponseEntity<List<Grade>> getGrades(){
-        memoria.setMaterias(dados.getMaterias());
-        GerenciadorGrades gerenciadorGrades = new GerenciadorGrades(memoria);
-        return ResponseEntity.ok(gerenciadorGrades.gerarGrades(preferencias));
-    }
-
     /**
      * Processa a lista de preferências do front.
      * @param materias Lista de matérias recebidas.
-     * @return OK
+     * @return Lista de grades possiveis
      */
     @PostMapping("/preferencias")
-    public ResponseEntity<String> processarJson(@RequestBody ArrayList<Materia> materias){
-        this.preferencias = materias;
-        return ResponseEntity.ok("ok");
+    public ResponseEntity<List<Grade>> processarJson(@RequestBody ArrayList<Materia> materias){
+        memoria.setMaterias(dados.getMaterias());
+        GerenciadorGrades gerenciadorGrades = new GerenciadorGrades(memoria);
+        return ResponseEntity.ok(gerenciadorGrades.gerarGrades(materias));
     }
-
     /**
      * Envia uma lista de Materias para /listaProfessores.
      * @return Lista de strings com nome dos professores.
@@ -49,7 +36,6 @@ public class Controle {
     public ResponseEntity<Set<String>> getNomeMaterias(){
         return ResponseEntity.ok(dados.getMaterias().stream().map(Materia::getNome).collect(Collectors.toSet()));
     }
-
     /**
      * Envia uma lista de professores para /listaProfessores
      * @return Lista de strings com nome dos professores.
