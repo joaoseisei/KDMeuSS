@@ -3,7 +3,6 @@ package com.joaoseisei.KDMeuSS;
 import Model.Grade;
 import Model.Materia;
 
-import Model.Memoria;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,7 +15,6 @@ import java.util.stream.Collectors;
 @RequestMapping("/gradesFiltradas")
 public class Controle {
     Dados dados = new Dados();
-    Memoria memoria = new Memoria();
     /**
      * Processa a lista de preferências do front.
      * @param materias Lista de matérias recebidas.
@@ -24,8 +22,7 @@ public class Controle {
      */
     @PostMapping("/preferencias")
     public ResponseEntity<List<Grade>> processarJson(@RequestBody ArrayList<Materia> materias){
-        memoria.setMaterias(dados.getMaterias());
-        GerenciadorGrades gerenciadorGrades = new GerenciadorGrades(memoria);
+        GerenciadorGrades gerenciadorGrades = new GerenciadorGrades(dados.getMaterias());
         return ResponseEntity.ok(gerenciadorGrades.gerarGrades(materias));
     }
     /**

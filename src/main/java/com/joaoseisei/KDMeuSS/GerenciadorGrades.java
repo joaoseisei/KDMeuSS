@@ -13,13 +13,13 @@ import java.util.stream.IntStream;
  * Classe responsável por controlar as operações relacionadas à geração de grades de horários.
  */
 public class GerenciadorGrades {
-    private final Memoria memoria;
+    private ArrayList<Materia> memoria;
 //CONSTRUTOR
     /**
      * Construtor da classe Controle.
      * @param memoria A memória que contém as matérias disponíveis.
      */
-    public GerenciadorGrades(Memoria memoria){
+    public GerenciadorGrades(ArrayList<Materia> memoria){
         this.memoria = memoria;
     }
 //----------------------------------GERAÇAO DE GRADES------------------------------------
@@ -42,7 +42,7 @@ public class GerenciadorGrades {
      */
     public HashMap<String, Materia> filtrarPreferencia(Materia materia){
         HashMap<String, Materia> codigoDiciplinas = new HashMap<>();
-        memoria.getMaterias().stream().filter(materia::equals) //Entrando no objeto escolhido da memória
+        memoria.stream().filter(materia::equals) //Entrando no objeto escolhido da memória
                 .forEach(materiaAtual -> {
                     String chaveHorario = materiaAtual.getCodigo();
                     if (codigoDiciplinas.containsKey(chaveHorario)) {

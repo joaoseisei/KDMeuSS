@@ -8,6 +8,7 @@ import java.util.ArrayList;
  */
 public class Dados {
     public ArrayList<Materia> getMaterias(){
+
         ArrayList<Materia> memoria = new ArrayList<>();
         memoria.add(new Materia("EDA", "ROSE", "35M34"));
         memoria.add(new Materia("EDA", "NILTON", "35M34"));
@@ -27,7 +28,6 @@ public class Dados {
         memoria.add(new Materia("MD2", "MATHEUS", "26T23"));
 
         memoria.add(new Materia("PJ1", "FULANO", "24T45"));
-
 
         return memoria;
     }
