@@ -50,31 +50,14 @@ public class Materia {
 //METODOS
 
     /**
-     * Override de equals que verifica se uma matéria é igual a outra com base nos atributos.
-     * @param obj Matéria a ser comparada.
+     * Verifica se uma matéria é igual a outra com base nos atributos.
+     * @param materia Máteria a ser comparada.
      * @return retorna true se as matérias são iguais.
      */
-    public boolean equals(Materia obj){
-        return this.nome.equals(obj.getNome()) &&
-                verificarProfessor(obj) && verificarCodigo(obj);
-    }
-
-    /**
-     * Esse método compara 2 atributos de matéria(professor), caso o professor seja "nenhum" retorna true.
-     * @param obj Matéria a ser comparada.
-     * @return retorna true se os professores forem iguais.
-     */
-    public boolean verificarProfessor(Materia obj){
-        return !(obj.getProfessor().equals("nenhum") || obj.getProfessor().equals(this.professor)) || obj.getProfessor().isEmpty();
-    }
-
-    /**
-     * Esse método compara 2 atributos de matéria(código), caso o código seja "nenhum" retorna true.
-     * @param obj Matéria a ser comparada.
-     * @return retorna true se os códigos forem iguais.
-     */
-    public boolean verificarCodigo(Materia obj){
-        return !(obj.getProfessor().equals("nenhum") || obj.getProfessor().equals(this.professor));
+    public boolean equals(Materia materia){
+        return this.nome.equals(materia.getNome()) &&
+                (this.professor==null || this.professor.equals(materia.getProfessor())) &&
+                (this.codigo==null || this.codigo.equals(materia.getCodigo()));
     }
 //TOSTRING
     public String toString(){

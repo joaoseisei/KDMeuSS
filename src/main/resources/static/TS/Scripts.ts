@@ -167,7 +167,7 @@ function adicionarInput(){
    inputProfessor.classList.add("input");
    inputProfessor.type = "text";
    inputProfessor.placeholder = "Professor";
-   inputProfessor.setAttribute("list", "materias");
+   inputProfessor.setAttribute("list", "professores");
 
    linha.appendChild(inputMateria);
    linha.appendChild(inputProfessor);
@@ -187,10 +187,13 @@ function salvarInputs(){
       const linhas = inputContainer.querySelectorAll("#linha");
 
       linhas.forEach(linha =>{
-         if(linha.querySelector('input[placeholder="Matéria"]').value != ""){
-            const disciplina ={
-               nome: linha.querySelector('input[placeholder="Matéria"]').value,
-               professor: linha.querySelector('input[placeholder="Professor"]').value
+         const nomeInput = linha.querySelector('input[placeholder="Matéria"]').value;
+         const professorInput = linha.querySelector('input[placeholder="Professor"]').value;
+
+         if (nomeInput.trim() !== "") {
+            const disciplina = {
+               nome: nomeInput,
+               professor: professorInput.trim() !== "" ? professorInput: null
             };
             preferenciasJSON.push(disciplina);
          }
