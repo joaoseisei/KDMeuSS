@@ -1,38 +1,46 @@
 package Model;
 
+import java.util.Arrays;
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
+import java.util.regex.Matcher;
 
 /**
  * Representa uma disciplina da UNB.
  */
 public class Materia {
-    private String nome;
-    private String professor;
-    private String codigo;
+    private String chaveDisciplina, siglaDisciplina, nomeCompleto, codigo, professor;
     private Set<Horario> horario = new HashSet<>();
-//CONSTRUTOR
-    /**
-     * Construtor da classe Materia.
-     * @param nome O nome da disciplina.
-     * @param professor O nome do professor responsável pela disciplina.
-     * @param codigo O código da disciplina(12M12).
-     */
-    public Materia(String nome, String professor, String codigo){
-        if(nome!=null) this.nome = nome;
-        if(professor!=null)this.professor = professor;
-        if(codigo!=null){
-            this.codigo = codigo;
+    private Set<String> comentarios = new HashSet<>();
+    private Set<Materia> equivalentes = new HashSet<>();
+    private Set<Materia> prerequisitos = new HashSet<>();
+    private Integer nota;
+    public Materia(String nomeCompleto, String professor, String codigo) {
+        this.nomeCompleto = nomeCompleto;
+        this.professor = professor;
+        this.codigo = codigo;
 
-            String[] partes = codigo.split("\\s+");
-            for(String index : partes){
-                horario.add(new Horario(index));
+        if(nomeCompleto != null){
+            Matcher matcher = Utilidades.patternDisciplina.matcher(nomeCompleto);
+            if(matcher.matches()){
+                this.chaveDisciplina = matcher.group(1);
+                this.siglaDisciplina = Utilidades.simplificarNomeMateria(matcher.group(2));
             }
         }
+
+        if(codigo != null){
+            Arrays.stream(codigo.split("\\s+")).forEach(index -> horario.add(new Horario(index)));
+        }
     }
-//GETTERS
-    public String getNome(){
-        return nome;
+    public String getChaveDisciplina(){
+        return chaveDisciplina;
+    }
+    public String getSiglaDisciplina(){
+        return siglaDisciplina;
+    }
+    public String getNomeCompleto(){
+        return nomeCompleto;
     }
     public String getProfessor(){
         return professor;
@@ -43,24 +51,45 @@ public class Materia {
     public Set<Horario> getHorario(){
         return horario;
     }
-//SETTERS
+    public Integer getNota(){
+        return nota;
+    }
+    public Set<String> getComentarios(){
+        return comentarios;
+    }
+    public Set<Materia> getEquivalentes(){
+        return equivalentes;
+    }
+    public Set<Materia> getPrerequisitos(){
+        return prerequisitos;
+    }
     public void setProfessor(String novoProfessor){
         this.professor = novoProfessor;
     }
-//METODOS
-
-    /**
-     * Verifica se uma matéria é igual a outra com base nos atributos.
-     * @param materia Máteria a ser comparada.
-     * @return retorna true se as matérias são iguais.
-     */
-    public boolean equals(Materia materia){
-        return this.nome.equals(materia.getNome()) &&
-                (this.professor==null || this.professor.equals(materia.getProfessor())) &&
-                (this.codigo==null || this.codigo.equals(materia.getCodigo()));
+    public void setNota(Integer nota){
+        this.nota = nota;
     }
-//TOSTRING
+    public void addComentarios(String comentario){
+        this.comentarios.add(comentario);
+    }
+    public void addEquivalente(Materia materia){
+        this.equivalentes.add(materia);
+    }
+    public void addPrerequisito(Materia materia){
+        this.prerequisitos.add(materia);
+    }
+    @Override
+    public boolean equals(Object obj){
+        if(this == obj) return true;
+        if(obj == null || getClass() != obj.getClass()) return false;
+        Materia materia = (Materia) obj;
+        return Objects.equals(this.chaveDisciplina, materia.chaveDisciplina) &&
+                (this.professor == null || this.professor.equals(materia.professor)) &&
+                (this.codigo == null || this.codigo.equals(materia.codigo));
+    }
+    @Override
     public String toString(){
-        return "\nMateria: "+nome+" | Professor: "+professor+" | Codigo: "+codigo;
+        return "Materia: " + nomeCompleto + " | Chave: " + chaveDisciplina + " | Sigla: " + siglaDisciplina + "\n"
+                + "Professor: " + professor + " | Codigo: " + codigo + " | Nota: " + nota + "\n";
     }
 }

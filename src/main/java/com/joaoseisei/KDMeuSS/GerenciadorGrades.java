@@ -48,7 +48,7 @@ public class GerenciadorGrades {
                     if (codigoDiciplinas.containsKey(chaveHorario)) {
                         Materia materiaExistente = codigoDiciplinas.get(chaveHorario);
                         materiaExistente.setProfessor(materiaExistente.getProfessor() + "|" + materiaAtual.getProfessor());
-                    }else codigoDiciplinas.put(chaveHorario, new Materia(materiaAtual.getNome(), materiaAtual.getProfessor(), materiaAtual.getCodigo()));
+                    }else codigoDiciplinas.put(chaveHorario, new Materia(materiaAtual.getNomeCompleto(), materiaAtual.getProfessor(), materiaAtual.getCodigo()));
                 });
         return codigoDiciplinas;
     }
@@ -124,8 +124,8 @@ public class GerenciadorGrades {
     public boolean verificadorConflitosMaterias(Materia primeira, Materia segunda){
         return primeira.getHorario().stream()
                 .flatMap(primeiroHorario -> segunda.getHorario().stream()
-                    .filter(segundoHorario -> verificadorConflitosHorarios(primeiroHorario, segundoHorario)))
-                    .findAny().isPresent();
+                        .filter(segundoHorario -> verificadorConflitosHorarios(primeiroHorario, segundoHorario)))
+                .findAny().isPresent();
     }
 
     /**

@@ -37,8 +37,13 @@ btnGerarGrade.addEventListener("click", ()=>{
 const btnAtualizar = document.getElementById("btnAtualizar");
 let gradeVisualizada = 0;
 let materiasColoridas = [];
+interface Materia {
+   chaveDisciplina: string;
+   professor: string;
+}
+
 btnAtualizar.addEventListener("click", () => {
-   const preferencias = salvarInputs()
+   var preferencias: Materia[] = salvarInputs();
    fetch("/gradesFiltradas/preferencias", {
       method: 'POST',
       headers: {
@@ -178,26 +183,24 @@ function adicionarInput(){
 /**
  * Salva os inputs e retorna um Json das preferências.
  */
-function salvarInputs(){
+function salvarInputs() {
    const preferenciasJSON = [];
 
    const container = document.getElementById("inputs");
-   const inputsContainers= container.querySelectorAll("#inputsContainer");
-   inputsContainers.forEach(inputContainer =>{
-      const linhas = inputContainer.querySelectorAll("#linha");
+   const inputsContainers = container.querySelectorAll(".linha"); // Alterei para ".linha" para pegar corretamente as linhas
 
-      linhas.forEach(linha =>{
-         const nomeInput = linha.querySelector('input[placeholder="Matéria"]').value;
-         const professorInput = linha.querySelector('input[placeholder="Professor"]').value;
+   inputsContainers.forEach(inputContainer => {
+      const nomeInput = inputContainer.querySelector('input[placeholder="Matéria"]').value;
+      const professorInput = inputContainer.querySelector('input[placeholder="Professor"]').value;
 
-         if (nomeInput.trim() !== "") {
-            const disciplina = {
-               nome: nomeInput,
-               professor: professorInput.trim() !== "" ? professorInput: null
-            };
-            preferenciasJSON.push(disciplina);
-         }
-      });
+      if (nomeInput.trim() !== "") {
+         const disciplina = {
+            chaveDisciplina: nomeInput,
+            professor: professorInput.trim() !== "" ? professorInput : null
+         };
+         preferenciasJSON.push(disciplina);
+      }
    });
+
    return preferenciasJSON;
 }
