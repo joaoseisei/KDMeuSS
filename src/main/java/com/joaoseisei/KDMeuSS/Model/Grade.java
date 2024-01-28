@@ -1,4 +1,4 @@
-package Model;
+package com.joaoseisei.KDMeuSS.Model;
 import java.util.ArrayList;
 
 /**

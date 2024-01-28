@@ -1,9 +1,11 @@
-package com.joaoseisei.KDMeuSS;
+package com.joaoseisei.KDMeuSS.Control;
 
-import Model.*;
+import com.joaoseisei.KDMeuSS.Model.Grade;
+import com.joaoseisei.KDMeuSS.Model.Horario;
+import com.joaoseisei.KDMeuSS.Model.Materia;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -23,34 +25,58 @@ public class GerenciadorGrades {
         this.memoria = memoria;
     }
 //----------------------------------GERAÇAO DE GRADES------------------------------------
-    /**
-     * Obtém todas as possibilidades de combinação de matérias selecionadas contidas na memória, filtrando por preferência de professor e o horário.
-     * @param escolhidas Lista de matérias com as preferências selecionadas.
-     * @return Uma lista de listas de matérias, separadas em blocos com o nome delas.
-     */
-    public ArrayList<ArrayList<Materia>> possibilidades(ArrayList<Materia> escolhidas) {
-        return escolhidas.stream()
-                .map(this::filtrarPreferencia)
-                .map(codigoDiciplinas -> new ArrayList<>(codigoDiciplinas.values()))
-                .collect(Collectors.toCollection(ArrayList::new));
+
+    public ArrayList<Materia> verificaEquivalencia(ArrayList<Materia> e) {
+        ArrayList<Materia> escolhidas = new ArrayList<>(e);
+
+        for (Materia index : escolhidas) {
+            List<Materia> equivalencias = memoria.stream()
+                    .filter(mem -> mem.getChaveDisciplina().equals(index.getChaveDisciplina()))
+                    .findFirst()
+                    .map(i -> i.getEquivalentes().stream()
+                            .flatMap(str -> memoria.stream()
+                                    .filter(eq -> eq.getChaveDisciplina().equals(str))
+                            )
+                            .toList()
+                    )
+                    .orElse(new ArrayList<>());
+
+            equivalencias.forEach(equi -> {
+                escolhidas.removeIf(mat -> equi.getChaveDisciplina().equals(mat.getChaveDisciplina()));
+                //System.out.println("A Matéria: " + index.getNomeCompleto() + " é equivalente a Matéria: " + equi.getNomeCompleto() + "\n DELETANDO EQUIVALENCIA\n");
+            });
+        }
+
+        return escolhidas;
     }
 
-    /**
-     * Filtra a matéria escolhida no parâmetro com base dos atributos dela, se encontrar 2 matérias com mesmo nome e horário, agrupa em uma matéria única.
-     * @param materia A matéria escolhida pelo usuário.
-     * @return Um mapa com os códigos das matérias como chave e a matéria como valor.
-     */
-    public HashMap<String, Materia> filtrarPreferencia(Materia materia){
-        HashMap<String, Materia> codigoDiciplinas = new HashMap<>();
-        memoria.stream().filter(materia::equals) //Entrando no objeto escolhido da memória
-                .forEach(materiaAtual -> {
-                    String chaveHorario = materiaAtual.getCodigo();
-                    if (codigoDiciplinas.containsKey(chaveHorario)) {
-                        Materia materiaExistente = codigoDiciplinas.get(chaveHorario);
-                        materiaExistente.setProfessor(materiaExistente.getProfessor() + "|" + materiaAtual.getProfessor());
-                    }else codigoDiciplinas.put(chaveHorario, new Materia(materiaAtual.getNomeCompleto(), materiaAtual.getProfessor(), materiaAtual.getCodigo()));
-                });
-        return codigoDiciplinas;
+    public ArrayList<ArrayList<Materia>> possibilidades(ArrayList<Materia> escolhidas){
+
+        ArrayList<ArrayList<Materia>> resultado = new ArrayList<>();
+
+        for(Materia atual: escolhidas){
+            ArrayList<Materia> resultadoAtual = new ArrayList<>();
+
+            if(atual.getProfessor() == null) {
+                memoria.stream()
+                        .filter(index -> index.getChaveDisciplina().equals(atual.getChaveDisciplina()))
+                        .findFirst()
+                        .ifPresent(index -> index.getEquivalentes().stream()
+                                .map(str -> memoria.stream()
+                                        .filter(equi -> equi.getChaveDisciplina().equals(str))
+                                        .toList()
+                                )
+                                .flatMap(List::stream)
+                                .forEach(resultadoAtual::add)
+                        );
+            }
+            memoria.stream()
+                    .filter(index -> index.equals(atual))
+                    .forEach(resultadoAtual::add);
+
+            resultado.add(resultadoAtual);
+        }
+        return resultado;
     }
 
     /**
@@ -81,7 +107,7 @@ public class GerenciadorGrades {
      */
     public ArrayList<Grade> gerarGrades(ArrayList<Materia> escolhidas) {
         ArrayList<Grade> grades = new ArrayList<>();
-        gerarCombinacoes(0, new ArrayList<>(), possibilidades(escolhidas), grades);
+        gerarCombinacoes(0, new ArrayList<>(), possibilidades(verificaEquivalencia(escolhidas)), grades);
         return grades;
     }
 //-------------------------------VERIFICAÇAO DE CONFLITOS---------------------------------

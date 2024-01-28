@@ -1,13 +1,12 @@
-package com.joaoseisei.KDMeuSS;
+package com.joaoseisei.KDMeuSS.Control;
 
-import Model.Grade;
-import Model.Materia;
+import com.joaoseisei.KDMeuSS.Model.Grade;
+import com.joaoseisei.KDMeuSS.Model.Materia;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -34,7 +33,7 @@ public class Controle {
      */
     @GetMapping("/listaMaterias")
     public ResponseEntity<Set<String>> getNomeMaterias(){
-        return ResponseEntity.ok(dados.getMaterias().stream().map(Materia::getChaveDisciplina).collect(Collectors.toSet()));
+        return ResponseEntity.ok(dados.getMaterias().stream().map(Materia::getNomeCompleto).collect(Collectors.toSet()));
     }
 
     /**

@@ -1,4 +1,4 @@
-package com.joaoseisei.KDMeuSS;
+package com.joaoseisei.KDMeuSS.Control;
 
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;

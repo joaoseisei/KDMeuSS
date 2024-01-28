@@ -1,7 +1,5 @@
-package com.joaoseisei.KDMeuSS;
+package com.joaoseisei.KDMeuSS.Control;
 
-import Model.Materia;
-import Model.Utilidades;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 

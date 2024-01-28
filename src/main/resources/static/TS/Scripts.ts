@@ -37,13 +37,8 @@ btnGerarGrade.addEventListener("click", ()=>{
 const btnAtualizar = document.getElementById("btnAtualizar");
 let gradeVisualizada = 0;
 let materiasColoridas = [];
-interface Materia {
-   chaveDisciplina: string;
-   professor: string;
-}
-
 btnAtualizar.addEventListener("click", () => {
-   var preferencias: Materia[] = salvarInputs();
+   const preferencias = salvarInputs()
    fetch("/gradesFiltradas/preferencias", {
       method: 'POST',
       headers: {
@@ -91,7 +86,7 @@ function adicionarMateria(materia){
       horarios.dia.forEach(dias =>{
          horarios.hora.forEach(horas =>{
             const id = horarios.turno + horas + dias;
-            const dado = `${materia.nome}`; //<br>${materia.professor}
+            const dado = `${materia.siglaDisciplina}`; //<br>${materia.professor}
             adicionarDado(dado, id, pegarCorMateria(materia));
          });
       });
@@ -101,10 +96,17 @@ function adicionarMateria(materia){
  * Retorna a cor da matéria.
  * @param materia Matéria a ser verificada a cor.
  */
-function pegarCorMateria(materia){
-   const moldeEncontrado = materiasColoridas.find(molde => molde.nome === materia.nome);
+function pegarCorMateria(materia) {
+   const moldeEncontrado = materiasColoridas.find(molde => molde.nome === materia.siglaDisciplina);
+
    if(moldeEncontrado) return moldeEncontrado.cor;
-   return "";
+
+   const novaCor = gerarCor();
+   materiasColoridas.push({
+      nome: materia.siglaDisciplina,
+      cor: novaCor
+   });
+   return novaCor;
 }
 /**
  * Retorna uma lista de jsons com nome de materias e uma cor aleatória.
@@ -112,7 +114,7 @@ function pegarCorMateria(materia){
  */
 function vincularCorMateria(listaMaterias){
    return listaMaterias.map(materia => ({
-      nome: materia.nome,
+      nome: materia.siglaDisciplina,
       cor: gerarCor()
    }));
 }
@@ -183,24 +185,26 @@ function adicionarInput(){
 /**
  * Salva os inputs e retorna um Json das preferências.
  */
-function salvarInputs() {
+function salvarInputs(){
    const preferenciasJSON = [];
 
    const container = document.getElementById("inputs");
-   const inputsContainers = container.querySelectorAll(".linha"); // Alterei para ".linha" para pegar corretamente as linhas
+   const inputsContainers= container.querySelectorAll("#inputsContainer");
+   inputsContainers.forEach(inputContainer =>{
+      const linhas = inputContainer.querySelectorAll("#linha");
 
-   inputsContainers.forEach(inputContainer => {
-      const nomeInput = inputContainer.querySelector('input[placeholder="Matéria"]').value;
-      const professorInput = inputContainer.querySelector('input[placeholder="Professor"]').value;
+      linhas.forEach(linha =>{
+         const nomeInput = linha.querySelector('input[placeholder="Matéria"]').value;
+         const professorInput = linha.querySelector('input[placeholder="Professor"]').value;
 
-      if (nomeInput.trim() !== "") {
-         const disciplina = {
-            chaveDisciplina: nomeInput,
-            professor: professorInput.trim() !== "" ? professorInput : null
-         };
-         preferenciasJSON.push(disciplina);
-      }
+         if (nomeInput.trim() !== "") {
+            const disciplina = {
+               nomeCompleto: nomeInput,
+               professor: professorInput.trim() !== "" ? professorInput: null
+            };
+            preferenciasJSON.push(disciplina);
+         }
+      });
    });
-
    return preferenciasJSON;
 }
